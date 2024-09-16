@@ -1,0 +1,34 @@
+plugins {
+    id 'com.android.library'
+    id 'maven-publish'
+}
+
+android {
+    compileSdkVersion 33
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 33
+    }
+}
+
+dependencies {
+	implementation fileTree(dir: "libs", include: ["*.jar"])
+}
+publishing {
+    publications {
+        // Usa el componente adecuado disponible
+        release(MavenPublication) {
+
+            groupId = 'com.codeUtilS'
+            artifactId = 'mi-codeUtilS'
+            version = '1.0.0'
+			     // Asegúrate de que el archivo AAR se publique
+            artifact("$buildDir/outputs/aar/${project.name}-release.aar")
+        }
+    }
+    repositories {
+        maven {
+            url = uri('/data/user/0/aidepro.top/no_backup/.aide/maven') // Ruta local
+        }
+    }
+}
